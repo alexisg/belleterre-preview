@@ -82,9 +82,10 @@ a:where(:not(.wp-element-button)):hover { text-decoration-thickness: 2px; }
 	.bt-header-wrap.is-overlay::before { background-color: hsl(var(--wp--custom--color--neutral--h) var(--wp--custom--color--neutral--s) 27% / 0.9); }
 }
 
-.bt-brand { flex: 1 1 auto; gap: 14px; }
+.bt-brand { flex: 0 0 auto; gap: 14px; }
 
-.bt-logo { margin: 0; flex: none; }
+.bt-logo { margin: 0; flex: none; line-height: 0; }
+.bt-logo a { display: block; }
 .bt-logo img { height: 46px; width: auto; display: block; }
 
 .bt-wordmark {
@@ -93,9 +94,9 @@ a:where(:not(.wp-element-button)):hover { text-decoration-thickness: 2px; }
 	font-size: 22px;
 	font-weight: 360;
 	letter-spacing: 0.01em;
-	line-height: 1.1;
+	line-height: 1;
 }
-.bt-wordmark a { color: hsl(var(--wp--custom--color--background--h) var(--wp--custom--color--background--s) 94%); text-decoration: none; white-space: nowrap; }
+.bt-wordmark a { display: block; color: hsl(var(--wp--custom--color--background--h) var(--wp--custom--color--background--s) 94%); text-decoration: none; white-space: nowrap; }
 .bt-wordmark__pre {
 	display: block;
 	margin-bottom: 3px;
