@@ -168,23 +168,23 @@ a:where(:not(.wp-element-button)):hover { text-decoration-thickness: 2px; }
 	align-items: stretch;
 	background: linear-gradient(160deg, hsl(var(--wp--custom--color--neutral--h) calc(var(--wp--custom--color--neutral--s) * 0.9) 39%), hsl(var(--wp--custom--color--neutral--h) var(--wp--custom--color--neutral--s) 28%));
 }
-/* Slideshow: base photo, then each slide fades in on top, 4s apart, 24s loop (6 photos x 4s), 1.5s fades.
+/* Slideshow: base photo, then each slide fades in on top, 4s apart, 28s loop (7 photos x 4s), 1.5s fades.
    A slide stays opaque until the next has fully faded in; the last fades out to the base. */
 .bt-hero .bt-hero__slide {
 	opacity: 0;
-	animation: bt-hero-fade 24s linear infinite;
+	animation: bt-hero-fade 28s linear infinite;
 	animation-delay: calc(var(--i) * 4s);
 }
 .bt-hero .bt-hero__slide:last-of-type { animation-name: bt-hero-fade-last; }
 @keyframes bt-hero-fade {
 	0% { opacity: 0; }
-	6.25%, 22.92% { opacity: 1; }
-	22.93%, 100% { opacity: 0; }
+	5.36%, 19.64% { opacity: 1; }
+	19.65%, 100% { opacity: 0; }
 }
 @keyframes bt-hero-fade-last {
 	0% { opacity: 0; }
-	6.25%, 16.67% { opacity: 1; }
-	22.92%, 100% { opacity: 0; }
+	5.36%, 14.29% { opacity: 1; }
+	19.64%, 100% { opacity: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
 	.bt-hero .bt-hero__slide { display: none; }
