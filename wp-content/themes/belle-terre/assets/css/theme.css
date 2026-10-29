@@ -111,10 +111,6 @@ a:where(:not(.wp-element-button)):hover { text-decoration-thickness: 2px; }
 }
 .bt-nav .wp-block-navigation-item__content { color: hsl(var(--wp--custom--color--background--h) calc(var(--wp--custom--color--background--s) * 0.67) 88%); text-decoration: none; }
 .bt-nav .wp-block-navigation-item__content:hover { color: var(--wp--preset--color--accent); }
-/* Site map sits outside the nav block so it stays visible when the nav collapses. */
-.bt-header__sitemap { margin: 0; font-size: 14.5px; white-space: nowrap; }
-.bt-header__sitemap a { color: hsl(var(--wp--custom--color--background--h) calc(var(--wp--custom--color--background--s) * 0.67) 88%); text-decoration: none; }
-.bt-header__sitemap a:hover { color: var(--wp--preset--color--accent); }
 .bt-nav .wp-block-navigation__responsive-container.is-menu-open {
 	padding: 32px clamp(20px, 4vw, 40px);
 	font-size: 22px;
@@ -705,28 +701,32 @@ body {
 }
 @media (max-width: 999px) {
 	.bt-nav .wp-block-navigation__responsive-container-open { color: hsl(var(--wp--custom--color--background--h) calc(var(--wp--custom--color--background--s) * 0.67) 88%); }
-	.bt-header__nav { gap: 16px; }
-	.bt-header__sitemap { order: -1; }
 
-	/* Homepage: show every header link instead of the menu button, wrapped below the seal. */
-	.bt-overlay-part .bt-header { flex-wrap: wrap; row-gap: 18px; }
-	.bt-overlay-part .bt-header__nav { flex: 1 1 100%; flex-wrap: wrap; gap: 12px 22px; }
-	.bt-overlay-part .bt-header__sitemap { order: 0; }
-	.bt-overlay-part .bt-header__sitemap a { color: var(--wp--preset--color--on-inverse); }
+	/* Homepage: show every header link instead of the menu button. Links flow inline
+	   so they wrap onto rows below the seal. */
+	.bt-overlay-part .bt-header { flex-wrap: wrap; row-gap: 14px; }
+	.bt-overlay-part .bt-header__nav { display: block; flex: 1 1 100%; font-size: 16px; line-height: 1.5; }
 	.bt-overlay-part .bt-nav .wp-block-navigation__responsive-container-open,
-	.bt-overlay-part .bt-nav .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__responsive-container-close { display: none !important; }
-	.bt-overlay-part .bt-nav .wp-block-navigation__responsive-container:not(.is-menu-open) {
-		display: block;
-		position: relative;
-		width: auto;
-		z-index: auto;
-		background-color: inherit;
-	}
-	.bt-overlay-part .bt-nav .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__responsive-container-content { padding: 0; }
-	.bt-hero.wp-block-cover { padding-top: 200px !important; }
-	.bt-overlay-part .bt-nav .wp-block-navigation__container { flex-wrap: wrap; gap: 12px 22px; justify-content: flex-start; }
+	.bt-overlay-part .bt-nav .wp-block-navigation__responsive-container-close { display: none !important; }
 	.bt-overlay-part .bt-nav,
-	.bt-overlay-part .bt-header__sitemap { font-size: 16px; }
+	.bt-overlay-part .bt-nav .wp-block-navigation__responsive-container,
+	.bt-overlay-part .bt-nav .wp-block-navigation__responsive-close,
+	.bt-overlay-part .bt-nav .wp-block-navigation__responsive-dialog,
+	.bt-overlay-part .bt-nav .wp-block-navigation__responsive-container-content,
+	.bt-overlay-part .bt-nav .wp-block-navigation__container {
+		display: inline !important;
+		position: static;
+		padding: 0;
+		background: none;
+		font-size: inherit;
+	}
+	.bt-overlay-part .bt-nav .wp-block-navigation-item {
+		display: inline-block;
+		margin: 0 18px 10px 0;
+		font-size: inherit;
+	}
+	.bt-overlay-part .bt-nav .wp-block-navigation-item:last-child { margin-right: 0; }
+	.bt-hero.wp-block-cover { padding-top: 200px !important; }
 }
 
 @media (max-width: 860px) {
@@ -736,14 +736,14 @@ body {
 
 @media (max-width: 379px) {
 	.bt-logo { display: none; }
-	.bt-hero.wp-block-cover { padding-top: 290px !important; }
+	.bt-hero.wp-block-cover { padding-top: 260px !important; }
 }
 
 @media (max-width: 600px) {
 	.bt-wordmark { font-size: 20px; }
 	.bt-wordmark__pre { font-size: 9px; }
 	.bt-logo img { height: 38px; }
-	.bt-hero.wp-block-cover { padding-top: 270px !important; }
+	.bt-hero.wp-block-cover { padding-top: 240px !important; }
 	.is-style-frosted { padding: 24px; border-radius: 24px; }
 	.bt-section-title { font-size: 28px; }
 }
