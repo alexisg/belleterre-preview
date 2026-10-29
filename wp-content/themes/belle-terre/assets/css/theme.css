@@ -703,8 +703,7 @@ body {
 @media (max-width: 999px) {
 	.bt-nav .wp-block-navigation__responsive-container-open { color: hsl(var(--wp--custom--color--background--h) calc(var(--wp--custom--color--background--s) * 0.67) 88%); }
 
-	/* Homepage: show every header link instead of the menu button. Links flow inline
-	   so they wrap onto rows below the seal. */
+	/* Homepage: glass panel behind the header so the links stand out over the photo. */
 	.bt-header-wrap.is-overlay { position: relative; isolation: isolate; }
 	.bt-header-wrap.is-overlay::before {
 		content: "";
@@ -715,28 +714,32 @@ body {
 		-webkit-backdrop-filter: blur(16px);
 		backdrop-filter: blur(16px);
 	}
+
+	/* Homepage: show every header link instead of the menu button, wrapped below the seal. */
 	.bt-overlay-part .bt-header { flex-wrap: wrap; row-gap: 14px; }
-	.bt-overlay-part .bt-header__nav { display: block; flex: 1 1 100%; font-size: 16px; line-height: 1.5; }
+	.bt-overlay-part .bt-header__nav { display: block; flex: 1 1 100%; font-size: 16px; }
 	.bt-overlay-part .bt-nav .wp-block-navigation__responsive-container-open,
 	.bt-overlay-part .bt-nav .wp-block-navigation__responsive-container-close { display: none !important; }
-	.bt-overlay-part .bt-nav,
+	.bt-overlay-part nav.bt-nav,
 	.bt-overlay-part .bt-nav .wp-block-navigation__responsive-container,
 	.bt-overlay-part .bt-nav .wp-block-navigation__responsive-close,
 	.bt-overlay-part .bt-nav .wp-block-navigation__responsive-dialog,
-	.bt-overlay-part .bt-nav .wp-block-navigation__responsive-container-content,
-	.bt-overlay-part .bt-nav .wp-block-navigation__container {
-		display: inline !important;
+	.bt-overlay-part .bt-nav .wp-block-navigation__responsive-container-content {
+		display: block !important;
 		position: static;
 		padding: 0;
 		background: none;
 		font-size: inherit;
 	}
-	.bt-overlay-part .bt-nav .wp-block-navigation-item {
-		display: inline-block;
-		margin: 0 18px 10px 0;
+	.bt-overlay-part .bt-nav .wp-block-navigation__container {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 8px 18px;
 		font-size: inherit;
+		justify-content: flex-start;
 	}
-	.bt-overlay-part .bt-nav .wp-block-navigation-item:last-child { margin-right: 0; }
 	.bt-hero.wp-block-cover { padding-top: 200px !important; }
 }
 
