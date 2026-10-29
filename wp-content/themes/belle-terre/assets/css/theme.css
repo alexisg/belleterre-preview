@@ -78,7 +78,8 @@ a:where(:not(.wp-element-button)):hover { text-decoration-thickness: 2px; }
 	backdrop-filter: blur(16px);
 }
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-	.bt-header-wrap.is-glass::before { background-color: hsl(var(--wp--custom--color--neutral--h) var(--wp--custom--color--neutral--s) 27% / 0.9); }
+	.bt-header-wrap.is-glass::before,
+	.bt-header-wrap.is-overlay::before { background-color: hsl(var(--wp--custom--color--neutral--h) var(--wp--custom--color--neutral--s) 27% / 0.9); }
 }
 
 .bt-brand { flex: 1 1 auto; gap: 14px; }
@@ -704,6 +705,16 @@ body {
 
 	/* Homepage: show every header link instead of the menu button. Links flow inline
 	   so they wrap onto rows below the seal. */
+	.bt-header-wrap.is-overlay { position: relative; isolation: isolate; }
+	.bt-header-wrap.is-overlay::before {
+		content: "";
+		position: absolute;
+		inset: 0;
+		z-index: -1;
+		background-color: hsl(var(--wp--custom--color--neutral--h) var(--wp--custom--color--neutral--s) 20% / 0.7);
+		-webkit-backdrop-filter: blur(16px);
+		backdrop-filter: blur(16px);
+	}
 	.bt-overlay-part .bt-header { flex-wrap: wrap; row-gap: 14px; }
 	.bt-overlay-part .bt-header__nav { display: block; flex: 1 1 100%; font-size: 16px; line-height: 1.5; }
 	.bt-overlay-part .bt-nav .wp-block-navigation__responsive-container-open,
