@@ -399,7 +399,7 @@ a:where(:not(.wp-element-button)):hover { text-decoration-thickness: 2px; }
 }
 .bt-footer__grid > * { margin: 0 !important; }
 .bt-footer__grid p { margin: 14px 0 0; }
-.bt-footer__grid p.bt-footer__name {
+.bt-footer p.bt-footer__name {
 	margin: 0;
 	font-family: var(--wp--preset--font-family--display);
 	font-size: 25px;
@@ -423,7 +423,12 @@ a:where(:not(.wp-element-button)):hover { text-decoration-thickness: 2px; }
 }
 .bt-footer__label a { color: inherit; }
 .bt-footer__links { list-style: none; margin: 16px 0 0; padding: 0; display: flex; flex-direction: column; gap: 10px; line-height: 1.4; }
-.bt-footer__legal { margin: 0; padding-top: 50px; font-size: 12.5px; color: var(--wp--preset--color--on-inverse-muted); }
+.bt-footer__contact {
+	margin-top: 50px !important;
+	padding-top: 40px;
+	border-top: 1px solid hsl(0 0% 100% / 0.14);
+}
+.bt-footer__contact p { margin: 14px 0 0; }
 
 /* ---------- Interior pages ---------- */
 
