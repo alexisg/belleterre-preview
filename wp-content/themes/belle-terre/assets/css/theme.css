@@ -97,7 +97,7 @@ a:where(:not(.wp-element-button)):hover { text-decoration-thickness: 2px; }
 	margin: 0;
 	font-family: var(--wp--preset--font-family--display);
 	font-size: 29px;
-	font-weight: 360;
+	font-weight: 400;
 	letter-spacing: 0.005em;
 	line-height: 0.9;
 }
@@ -518,7 +518,7 @@ a:where(:not(.wp-element-button)):hover { text-decoration-thickness: 2px; }
 	padding: 26px 28px 24px;
 }
 .bt-hub-card > * { margin: 0 0 12px !important; }
-.bt-prose .bt-hub-card__title { margin-top: 0 !important; font-size: 26px; line-height: 1.2; font-weight: 450; }
+.bt-prose .bt-hub-card__title { margin-top: 0 !important; font-size: 26px; line-height: 1.2; font-weight: 400; }
 .bt-hub-card__title a { color: var(--wp--preset--color--foreground); text-decoration: none; }
 .bt-hub-card__title a:hover { color: var(--wp--preset--color--primary); }
 .bt-hub-card p { font-size: 15.5px; line-height: 1.6; color: var(--wp--preset--color--foreground-soft); }
