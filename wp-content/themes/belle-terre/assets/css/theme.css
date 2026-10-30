@@ -1,16 +1,21 @@
 /* Belle Terre — layout and component styles that theme.json can't express.
  *
- * Colors work in two layers, both defined in theme.json:
+ * Colors work in four layers, all defined in theme.json (mirrored 1:1 as
+ * variables in the "Belle Terre — Website" Figma file):
  *  1. Roles (settings.custom.color): primary, secondary, accent, neutral,
- *     background, danger. Each is just a hue (h) and saturation (s), exposed as
+ *     background, danger. Each is a hue (h) and saturation (s), exposed as
  *     --wp--custom--color--<role>--h / --s. Re-theme by changing these.
- *  2. Semantic palette (settings.color.palette), built from the roles:
+ *  2. Tones (settings.custom.tone → --wp--custom--tone--*): every shade the
+ *     site uses, named <role>-<lightness>[-s-<saturation%>][-a-<alpha%>] and
+ *     built from the roles. Figma "Primitives".
+ *  3. Semantic palette (settings.color.palette → --wp--preset--color--*):
  *     background, surface, border, foreground(-soft/-muted), primary(-strong),
  *     secondary, accent, inverse, on-inverse(-soft/-muted), danger.
- * Always use a palette color (--wp--preset--color--*) when one fits. For a
- * one-off shade or transparency, build from a role:
- *   hsl(var(--wp--custom--color--neutral--h) var(--wp--custom--color--neutral--s) 20% / 0.7)
- * Never hard-code a hex value. */
+ *  4. UI roles (settings.custom.ui → --wp--custom--ui--*): one-off shades
+ *     for specific parts (glass, frosted, wordmark, nav-link, scrims…).
+ * Use a palette color when one fits, else a ui role. Add new shades as a
+ * tone + ui role in theme.json — never hard-code hsl() or hex here.
+ * Radii: --wp--custom--radius--{xs,md,pill,round}. */
 
 body {
 	-webkit-font-smoothing: antialiased;
@@ -49,7 +54,7 @@ a:where(:not(.wp-element-button)):hover { text-decoration-thickness: 2px; }
 :where(a, button, input, select, textarea, summary):focus-visible {
 	outline: 2px solid currentColor;
 	outline-offset: 3px;
-	border-radius: 2px;
+	border-radius: var(--wp--custom--radius--xs);
 }
 
 /* ---------- Header ---------- */
@@ -73,13 +78,13 @@ a:where(:not(.wp-element-button)):hover { text-decoration-thickness: 2px; }
 	position: absolute;
 	inset: 0;
 	z-index: -1;
-	background-color: hsl(var(--wp--custom--color--neutral--h) var(--wp--custom--color--neutral--s) 20% / 0.7);
+	background-color: var(--wp--custom--ui--glass);
 	-webkit-backdrop-filter: blur(16px);
 	backdrop-filter: blur(16px);
 }
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
 	.bt-header-wrap.is-glass::before,
-	.bt-header-wrap.is-overlay::before { background-color: hsl(var(--wp--custom--color--neutral--h) var(--wp--custom--color--neutral--s) 27% / 0.9); }
+	.bt-header-wrap.is-overlay::before { background-color: var(--wp--custom--ui--glass-fallback); }
 }
 
 .bt-brand { flex: 0 0 auto; gap: 14px; }
@@ -96,7 +101,7 @@ a:where(:not(.wp-element-button)):hover { text-decoration-thickness: 2px; }
 	letter-spacing: 0.005em;
 	line-height: 0.9;
 }
-.bt-wordmark a { display: block; color: hsl(var(--wp--custom--color--background--h) var(--wp--custom--color--background--s) 94%); text-decoration: none; white-space: nowrap; }
+.bt-wordmark a { display: block; color: var(--wp--custom--ui--wordmark); text-decoration: none; white-space: nowrap; }
 .bt-wordmark__pre {
 	display: block;
 	margin-bottom: 6px;
@@ -105,14 +110,14 @@ a:where(:not(.wp-element-button)):hover { text-decoration-thickness: 2px; }
 	line-height: 1;
 	letter-spacing: 0.2em;
 	text-transform: uppercase;
-	color: hsl(var(--wp--custom--color--background--h) calc(var(--wp--custom--color--background--s) * 0.67) 79%);
+	color: var(--wp--custom--ui--wordmark-pre);
 }
 
 .bt-nav {
 	font-size: 14.5px;
 	font-weight: 400;
 }
-.bt-nav .wp-block-navigation-item__content { color: hsl(var(--wp--custom--color--background--h) calc(var(--wp--custom--color--background--s) * 0.67) 88%); text-decoration: none; }
+.bt-nav .wp-block-navigation-item__content { color: var(--wp--custom--ui--nav-link); text-decoration: none; }
 .bt-nav .wp-block-navigation-item__content:hover { color: var(--wp--preset--color--accent); }
 .bt-nav .wp-block-navigation__responsive-container.is-menu-open {
 	padding: 32px clamp(20px, 4vw, 40px);
@@ -127,26 +132,26 @@ a:where(:not(.wp-element-button)):hover { text-decoration-thickness: 2px; }
 	font-size: 12px;
 	letter-spacing: 0.22em;
 	text-transform: uppercase;
-	color: hsl(var(--wp--custom--color--background--h) calc(var(--wp--custom--color--background--s) * 0.67) 78%);
+	color: var(--wp--custom--ui--eyebrow-on-photo);
 	margin: 0;
 }
 
 .is-style-frosted {
-	background-color: hsl(var(--wp--custom--color--neutral--h) calc(var(--wp--custom--color--neutral--s) * 0.5) 8% / 0.74);
+	background-color: var(--wp--custom--ui--frosted);
 	-webkit-backdrop-filter: blur(14px) saturate(1.1);
 	backdrop-filter: blur(14px) saturate(1.1);
-	border-radius: 16px;
+	border-radius: var(--wp--custom--radius--md);
 	padding: 32px;
 }
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-	.is-style-frosted { background-color: hsl(var(--wp--custom--color--neutral--h) calc(var(--wp--custom--color--neutral--s) * 0.5) 8% / 0.88); }
+	.is-style-frosted { background-color: var(--wp--custom--ui--frosted-fallback); }
 }
 
 .is-style-photo-links { gap: 12px 34px; font-size: 15px; align-items: baseline; }
 .is-style-photo-links p { margin: 0; }
 .is-style-photo-links a {
 	color: var(--wp--preset--color--on-inverse);
-	text-decoration-color: hsl(var(--wp--custom--color--background--h) var(--wp--custom--color--background--s) 97% / 0.6);
+	text-decoration-color: var(--wp--custom--ui--photo-link-underline);
 	transition: text-decoration-color 0.15s ease;
 }
 .is-style-photo-links a:hover { text-decoration-color: var(--wp--preset--color--accent); }
@@ -166,7 +171,7 @@ a:where(:not(.wp-element-button)):hover { text-decoration-thickness: 2px; }
 .bt-hero.wp-block-cover {
 	padding-inline: clamp(20px, 4vw, 40px);
 	align-items: stretch;
-	background: linear-gradient(160deg, hsl(var(--wp--custom--color--neutral--h) calc(var(--wp--custom--color--neutral--s) * 0.9) 39%), hsl(var(--wp--custom--color--neutral--h) var(--wp--custom--color--neutral--s) 28%));
+	background: linear-gradient(160deg, var(--wp--custom--ui--hero-fallback-start), var(--wp--custom--ui--hero-fallback-end));
 }
 /* Slideshow: base photo, then each slide fades in on top, 4s apart, 28s loop (7 photos x 4s), 1.5s fades.
    A slide stays opaque until the next has fully faded in; the last fades out to the base. */
@@ -198,9 +203,9 @@ a:where(:not(.wp-element-button)):hover { text-decoration-thickness: 2px; }
 	z-index: 1;
 	pointer-events: none;
 	background: linear-gradient(180deg,
-		hsl(var(--wp--custom--color--neutral--h) var(--wp--custom--color--neutral--s) 10% / 0.78) 0%,
-		hsl(var(--wp--custom--color--neutral--h) var(--wp--custom--color--neutral--s) 10% / 0.5) 50%,
-		hsl(var(--wp--custom--color--neutral--h) var(--wp--custom--color--neutral--s) 10% / 0) 100%);
+		var(--wp--custom--ui--scrim-strong) 0%,
+		var(--wp--custom--ui--scrim-mid) 50%,
+		var(--wp--custom--ui--scrim-clear) 100%);
 }
 .bt-hero > .wp-block-cover__inner-container { z-index: 2; }
 .bt-hero > .wp-block-cover__inner-container {
@@ -328,7 +333,7 @@ a:where(:not(.wp-element-button)):hover { text-decoration-thickness: 2px; }
 .bt-office .bt-caps { font-size: 13px !important; letter-spacing: 0.08em; line-height: 1.6; }
 .bt-office .bt-alert { color: var(--wp--preset--color--danger) !important; }
 .bt-office .bt-alert :where(strong, mark) { color: inherit !important; font-weight: 600; }
-.bt-item.is-first .bt-alert { margin-top: 12px; padding-top: 12px; border-top: 1px solid hsl(var(--wp--custom--color--danger--h) var(--wp--custom--color--danger--s) 39% / 0.2); }
+.bt-item.is-first .bt-alert { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--wp--custom--ui--alert-rule); }
 .bt-item figure:first-child { margin-top: 0; }
 .bt-item figcaption { font-style: normal; }
 .bt-item figcaption :where(strong, em) { font-weight: 400; font-style: normal; color: inherit; }
@@ -369,7 +374,7 @@ a:where(:not(.wp-element-button)):hover { text-decoration-thickness: 2px; }
 
 .bt-band.wp-block-cover {
 	padding-inline: clamp(20px, 4vw, 40px);
-	background: linear-gradient(150deg, hsl(var(--wp--custom--color--neutral--h) var(--wp--custom--color--neutral--s) 48%), hsl(var(--wp--custom--color--neutral--h) var(--wp--custom--color--neutral--s) 32%));
+	background: linear-gradient(150deg, var(--wp--custom--ui--band-fallback-start), var(--wp--custom--ui--band-fallback-end));
 }
 .bt-band > .wp-block-cover__inner-container { color: var(--wp--preset--color--on-inverse); }
 .bt-band > .wp-block-cover__inner-container > * { margin-inline: 0 !important; }
@@ -381,7 +386,7 @@ a:where(:not(.wp-element-button)):hover { text-decoration-thickness: 2px; }
 	line-height: 1.12;
 	color: var(--wp--preset--color--on-inverse);
 }
-.bt-band__lede { margin: 18px 0 26px; max-width: 520px; font-size: 17px; line-height: 1.7; color: hsl(var(--wp--custom--color--background--h) calc(var(--wp--custom--color--background--s) * 0.67) 85%); }
+.bt-band__lede { margin: 18px 0 26px; max-width: 520px; font-size: 17px; line-height: 1.7; color: var(--wp--custom--ui--band-lede); }
 .bt-band .is-style-photo-links { gap: 12px 26px; }
 
 /* ---------- Footer ---------- */
@@ -391,7 +396,7 @@ a:where(:not(.wp-element-button)):hover { text-decoration-thickness: 2px; }
 	font-size: 14.5px;
 	line-height: 1.75;
 }
-.bt-footer a { color: hsl(var(--wp--custom--color--neutral--h) calc(var(--wp--custom--color--neutral--s) * 1.1) 84%); text-decoration: none; }
+.bt-footer a { color: var(--wp--custom--ui--footer-link); text-decoration: none; }
 .bt-footer a:hover { color: var(--wp--preset--color--on-inverse); text-decoration: underline; }
 .bt-footer__grid {
 	display: grid;
@@ -411,7 +416,7 @@ a:where(:not(.wp-element-button)):hover { text-decoration-thickness: 2px; }
 .bt-footer__alert { margin-top: 18px !important; }
 .bt-footer .bt-footer__alert a {
 	color: var(--wp--preset--color--accent);
-	border-bottom: 1px solid hsl(var(--wp--custom--color--accent--h) var(--wp--custom--color--accent--s) 78% / 0.4);
+	border-bottom: 1px solid var(--wp--custom--ui--accent-underline);
 	padding-bottom: 3px;
 }
 .bt-footer__grid p.bt-footer__label {
@@ -427,7 +432,7 @@ a:where(:not(.wp-element-button)):hover { text-decoration-thickness: 2px; }
 .bt-footer__contact {
 	margin-top: 50px !important;
 	padding-top: 40px;
-	border-top: 1px solid hsl(0 0% 100% / 0.14);
+	border-top: 1px solid var(--wp--custom--ui--footer-rule);
 }
 .bt-footer__contact p { margin: 14px 0 0; }
 
@@ -609,7 +614,7 @@ a:where(:not(.wp-element-button)):hover { text-decoration-thickness: 2px; }
 	top: 12px;
 	width: 32px;
 	height: 32px;
-	border-radius: 50%;
+	border-radius: var(--wp--custom--radius--round);
 	background: var(--wp--preset--color--primary);
 	color: var(--wp--preset--color--on-inverse);
 	font-size: 15px;
@@ -690,7 +695,7 @@ body {
 	--tec-color-accent-primary: var(--wp--preset--color--primary);
 	--tec-color-accent-primary-hover: var(--wp--preset--color--primary-strong);
 	--tec-color-accent-primary-active: var(--wp--preset--color--primary-strong);
-	--tec-color-accent-primary-background: hsl(var(--wp--custom--color--primary--h) var(--wp--custom--color--primary--s) 34% / 0.08);
+	--tec-color-accent-primary-background: var(--wp--custom--ui--primary-tint);
 	--tec-color-button-primary: var(--wp--preset--color--primary);
 	--tec-color-button-primary-hover: var(--wp--preset--color--primary-strong);
 	--tec-color-link-accent: var(--wp--preset--color--primary);
@@ -708,7 +713,7 @@ body {
 	.bt-nav .wp-block-navigation__responsive-container:not(.hidden-by-default):not(.is-menu-open) { display: none; }
 }
 @media (max-width: 999px) {
-	.bt-nav .wp-block-navigation__responsive-container-open { color: hsl(var(--wp--custom--color--background--h) calc(var(--wp--custom--color--background--s) * 0.67) 88%); }
+	.bt-nav .wp-block-navigation__responsive-container-open { color: var(--wp--custom--ui--nav-link); }
 
 	/* Homepage: glass panel behind the header so the links stand out over the photo. */
 	.bt-header-wrap.is-overlay { position: relative; isolation: isolate; }
@@ -717,7 +722,7 @@ body {
 		position: absolute;
 		inset: 0;
 		z-index: -1;
-		background-color: hsl(var(--wp--custom--color--neutral--h) var(--wp--custom--color--neutral--s) 20% / 0.7);
+		background-color: var(--wp--custom--ui--glass);
 		-webkit-backdrop-filter: blur(16px);
 		backdrop-filter: blur(16px);
 	}
